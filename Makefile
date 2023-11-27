@@ -6,7 +6,7 @@
 #    By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/23 18:09:10 by aboiarin          #+#    #+#              #
-#    Updated: 2023/11/23 18:18:04 by aboiarin         ###   ########.fr        #
+#    Updated: 2023/11/27 15:57:27 by aboiarin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,8 @@ NAME = fractol
 LIBFT_PATH = ./libft
 LIBFT = $(LIBFT_PATH)/libft.a
 
-MLBX_PATH = ./minilibx-linux
-MLBX = $(MLBX_PATH)/libmlx.a
+MLX_PATH = ./mlx
+MLX = $(MLX_PATH)/libmlx.a
 
 SRC = fractol.c
 
@@ -33,24 +33,25 @@ all: start_message $(NAME) success_message
 bonus: all
 
 .o:	.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -I/usr/include -Imlx -03 -c $< -o $@
 
-$(NAME):	$(LIBFT) $(MLBX) $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+$(NAME):	$(LIBFT) $(MLX) $(OBJ)
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -o $(NAME)
 
 $(LIBFT):
 	@echo 'Compiling libft... 📀'
 	@make -C $(LIBFT_PATH) all
 	@echo 'libft done ✅'
 
-$(MLBX):
+$(MLX):
 	@echo 'Compiling MiniLibX... 🪄'
-	@make -C $(MLBX_PATH) all
+	@make -C $(MLX_PATH) all
 	@echo 'MiniLibX done ✅'
 	
 clean:
 	@$(RM) $(OBJ)
 	@make -C $(LIBFT_PATH) clean
+	@make -C $(MLX_PATH) clean
 	@echo 'Object files removed ✨'
 
 start_message:
