@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.c                                          :+:      :+:    :+:   */
+/*   st.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/24 16:47:06 by aboiarin          #+#    #+#             */
-/*   Updated: 2023/12/05 16:13:54 by aboiarin         ###   ########.fr       */
+/*   Created: 2023/12/05 15:41:26 by aboiarin          #+#    #+#             */
+/*   Updated: 2023/12/05 15:46:57 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,29 +27,52 @@ int	main(void)
 	t_img	img;
 	int		x;
 	int		y;
-	int		t;
-	int		r;
-	int		g;
-	int		b;
-	int		color;
 
 	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "Rainbow");
+	mlx_win = mlx_new_window(mlx, 1920, 1080, "Square and triangle");
 	img.img = mlx_new_image(mlx, 1920, 1080);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.len, &img.end);
-	x = 0;
-	while (++x < 1920)
+	x = 200;
+	y = 200;
+	while (x < 500)
 	{
-		y = 0;
-		while (++y < 1080)
-		{
-			
-			r = 0x00FF0000;
-			g = 0x0000FF00;
-			b = 0x000000FF;
-			color = (r << 16) | (g << 8) | b;
-			mlx_put_pixel(&img, x, y, color);
-		}
+		mlx_put_pixel(&img, x, y, 0x00FF0000);
+		x++;
+	}
+	while (y < 500)
+	{
+		mlx_put_pixel(&img, x, y, 0x00FF0000);
+		y++;
+	}
+	while (x > 200)
+	{
+		mlx_put_pixel(&img, x, y, 0x00FF0000);
+		x--;
+	}
+	while (y > 200)
+	{
+		mlx_put_pixel(&img, x, y, 0x00FF0000);
+		y--;
+	}
+	x = 600;
+	y = 600;
+	while (x < 800)
+	{
+		mlx_put_pixel(&img, x, y, 0x00FF0000);
+		y++;
+		x++;
+	}
+	x = y;
+	while (x > 400)
+	{
+		mlx_put_pixel(&img, x, y, 0x00FF0000);
+		x--;
+	}
+	while (x < 600)
+	{
+		mlx_put_pixel(&img, x, y, 0x00FF0000);
+		x++;
+		y--;
 	}
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	mlx_loop(mlx);
