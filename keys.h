@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   keys.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/24 16:47:47 by aboiarin          #+#    #+#             */
-/*   Updated: 2023/12/11 14:23:20 by aboiarin         ###   ########.fr       */
+/*   Created: 2023/12/11 13:38:07 by aboiarin          #+#    #+#             */
+/*   Updated: 2023/12/11 14:30:38 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
+#ifndef KEYS_H
+# define KEYS_H
 
-# include "libft/libft.h"
-# include "mlx/mlx.h"
-# include "keys.h"
-
-# define WIDTH 800
-# define HEIGHT 800
-# define MAX_I 60
-
-# define MANDELBROT 1
-# define JULIA 2
-
-typedef struct  s_img
-{
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char    *addr;
-	int     bpp;
-	int     len;
-	int     end;
-}           t_img;
+# define CLOSE_BTN 17
+# define KEY_ESC 17
+# define KEYDOWN 2
+# define KEYUP 3
+# define MOUSE_BTN_L 1
+# define MOUSE_BTN_R 3
+# define MOUSE_WHEEL_UP 4
+# define MOUSE_WHEEL_DOWN 5
+# define MOUSE_WHEEL_BTN 3
 
 #endif

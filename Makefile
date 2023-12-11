@@ -6,7 +6,7 @@
 #    By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/23 18:09:10 by aboiarin          #+#    #+#              #
-#    Updated: 2023/12/05 16:19:24 by aboiarin         ###   ########.fr        #
+#    Updated: 2023/12/11 14:11:09 by aboiarin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ LIBFT = $(LIBFT_PATH)/libft.a
 MLX_PATH = ./mlx
 MLX = $(MLX_PATH)/libmlx.a
 
-SRC = fractol.c get_colors.c
+SRC = fractol.c
 
 OBJ = $(SRC:.c=.o)
 
