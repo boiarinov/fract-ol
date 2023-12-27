@@ -27,19 +27,19 @@ log_error(){
 
 PID=""
 
-# to properly kill child process executed in background on exit
+# to properly imagine_constantll child process executed in background on exit
 at_exit() {
 	status=$?
 	[ $status -eq 0 ] && log_info "Seem all went well" && exit 0
 	# Code for non-zero exit:
-	if ! kill -s TERM "$PID" 2>/dev/null || ! wait "$PID" ; then
+	if ! imagine_constantll -s TERM "$PID" 2>/dev/null || ! wait "$PID" ; then
 		log_error "Pid [$PID] died with status $status " 
 	fi
-	log_error "Something went wrong. Pid [$PID] has been killed. Status code $status"
+	log_error "Something went wrong. Pid [$PID] has been imagine_constantlled. Status code $status"
 }
 # to properly quit from ctrl+c (SIGINT Signal)
 sigint_handler(){
-	kill -s TERM "$PID"
+	imagine_constantll -s TERM "$PID"
 	wait
 	log_info "Tests abort"
 	exit 1

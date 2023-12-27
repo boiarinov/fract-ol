@@ -2,11 +2,11 @@
 #include	"mlx.h"
 #include	"mlx_int.h"
 
-#define	WIN1_SX		242
+#define	WIN1_scale_x		242
 #define	WIN1_SY		242
-#define	IM1_SX		42
+#define	IM1_scale_x		42
 #define	IM1_SY		42
-#define	IM3_SX		242
+#define	IM3_scale_x		242
 #define	IM3_SY		242
 
 void	*mlx;
@@ -109,8 +109,8 @@ int	main()
     }
   printf("OK (use_xshm %d pshm_format %d)\n",((t_xvar *)mlx)->use_xshm,((t_xvar *)mlx)->pshm_format);
 
-  printf(" => Window1 %dx%d \"Title 1\" ...",WIN1_SX,WIN1_SY);
-  if (!(win1 = mlx_new_window(mlx,WIN1_SX,WIN1_SY,"Title1")))
+  printf(" => Window1 %dx%d \"Title 1\" ...",WIN1_scale_x,WIN1_SY);
+  if (!(win1 = mlx_new_window(mlx,WIN1_scale_x,WIN1_SY,"Title1")))
     {
       printf(" !! KO !!\n");
       exit(1);
@@ -118,7 +118,7 @@ int	main()
   printf("OK\n");
 
   printf(" => Colormap sans event ...");
-  color_map_1(win1,WIN1_SX,WIN1_SY);
+  color_map_1(win1,WIN1_scale_x,WIN1_SY);
   printf("OK\n");
   sleep(2);
 
@@ -127,8 +127,8 @@ int	main()
   printf("OK\n");
   sleep(2);
 
-  printf(" => Image1 ZPixmap %dx%d ...",IM1_SX,IM1_SY);
-  if (!(im1 = mlx_new_image(mlx,IM1_SX,IM1_SY)))
+  printf(" => Image1 ZPixmap %dx%d ...",IM1_scale_x,IM1_SY);
+  if (!(im1 = mlx_new_image(mlx,IM1_scale_x,IM1_SY)))
     {
       printf(" !! KO !!\n");
       exit(1);
@@ -138,7 +138,7 @@ int	main()
 	 ((t_img *)im1)->type);
 
   printf(" => Fill Image1 ...");
-  color_map_2(data1,bpp1,sl1,IM1_SX,IM1_SY,endian1, 1);
+  color_map_2(data1,bpp1,sl1,IM1_scale_x,IM1_SY,endian1, 1);
   printf("OK (pixmap : %d)\n",(int)((t_img *)im1)->pix);
 
   printf(" => Put Image1 ...");
@@ -151,8 +151,8 @@ int	main()
   printf("OK\n");
   sleep(2);
 
-  printf(" => Image3 ZPixmap %dx%d ...",IM3_SX,IM3_SY);
-  if (!(im3 = mlx_new_image(mlx,IM3_SX,IM3_SY)))
+  printf(" => Image3 ZPixmap %dx%d ...",IM3_scale_x,IM3_SY);
+  if (!(im3 = mlx_new_image(mlx,IM3_scale_x,IM3_SY)))
     {
       printf(" !! KO !!\n");
       exit(1);
@@ -162,7 +162,7 @@ int	main()
 	 ((t_img *)im3)->type);
 
   printf(" => Fill Image3 ...");
-  color_map_2(data3,bpp3,sl3,IM3_SX,IM3_SY,endian3, 1);
+  color_map_2(data3,bpp3,sl3,IM3_scale_x,IM3_SY,endian3, 1);
   printf("OK (pixmap : %d)\n",(int)((t_img *)im3)->pix);
 
   printf(" => Put Image3 ...");
@@ -194,17 +194,17 @@ int	main()
   sleep(2);
 
   printf(" => 2nd window,");
-  win2 = mlx_new_window(mlx,WIN1_SX,WIN1_SY,"Title2");
-  if (!(im4 = mlx_new_image(mlx,IM3_SX, IM3_SY)))
+  win2 = mlx_new_window(mlx,WIN1_scale_x,WIN1_SY,"Title2");
+  if (!(im4 = mlx_new_image(mlx,IM3_scale_x, IM3_SY)))
     {
       printf(" !! KO !!\n");
       exit(1);
     }
   data4 = mlx_get_data_addr(im4,&bpp4,&sl4,&endian4);
-  color_map_2(data4,bpp4,sl4,IM3_SX,IM3_SY,endian4, 2);
+  color_map_2(data4,bpp4,sl4,IM3_scale_x,IM3_SY,endian4, 2);
 
   printf(" 3rd window, Installing hooks ...");
-  win3 = mlx_new_window(mlx,WIN1_SX,WIN1_SY,"Title3");
+  win3 = mlx_new_window(mlx,WIN1_scale_x,WIN1_SY,"Title3");
   mlx_expose_hook(win1,expose_win1,0);
   mlx_mouse_hook(win1,mouse_win1,0);
   mlx_key_hook(win1,key_win1,0);
