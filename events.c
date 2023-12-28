@@ -6,7 +6,7 @@
 /*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 16:47:06 by aboiarin          #+#    #+#             */
-/*   Updated: 2023/12/27 19:03:42 by aboiarin         ###   ########.fr       */
+/*   Updated: 2023/12/28 16:55:13 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ static void	zoom(t_img *f, double zoom)
 	double	center_r;
 	double	center_i;
 
-	center_r = f->real_min - f->real_max;
-	center_i = f->imagine_max - f->imagine_min;
-	f->real_max = f->real_max + (center_r - zoom * center_r) / 2;
-	f->real_min = f->real_max + zoom * center_r;
-	f->imagine_min = f->imagine_min + (center_i - zoom * center_i) / 2;
-	f->imagine_max = f->imagine_min + zoom * center_i;
+	center_r = f->x_min - f->x_max;
+	center_i = f->y_max - f->y_min;
+	f->x_max = f->x_max + (center_r - zoom * center_r) / 2;
+	f->x_min = f->x_max + zoom * center_r;
+	f->y_min = f->y_min + (center_i - zoom * center_i) / 2;
+	f->y_max = f->y_min + zoom * center_i;
 }
 
 static void	move(t_img *f, double distance, char direction)
@@ -30,27 +30,27 @@ static void	move(t_img *f, double distance, char direction)
 	double	center_r;
 	double	center_i;
 
-	center_r = f->real_max - f->real_min;
-	center_i = f->imagine_max - f->imagine_min;
+	center_r = f->x_max - f->x_min;
+	center_i = f->y_max - f->y_min;
 	if (direction == 'R')
 	{
-		f->real_min += center_r * distance;
-		f->real_max += center_r * distance;
+		f->x_min += center_r * distance;
+		f->x_max += center_r * distance;
 	}
 	else if (direction == 'L')
 	{
-		f->real_min -= center_r * distance;
-		f->real_max -= center_r * distance;
+		f->x_min -= center_r * distance;
+		f->x_max -= center_r * distance;
 	}
 	else if (direction == 'D')
 	{
-		f->imagine_min -= center_i * distance;
-		f->imagine_max -= center_i * distance;
+		f->y_min -= center_i * distance;
+		f->y_max -= center_i * distance;
 	}
 	else if (direction == 'U')
 	{
-		f->imagine_min += center_i * distance;
-		f->imagine_max += center_i * distance;
+		f->y_min += center_i * distance;
+		f->y_max += center_i * distance;
 	}
 }
 
@@ -75,7 +75,7 @@ int	key_events(int key, t_img *f)
 		move(f, 0.2, 'R');
 	else
 		return (1);
-	win_set(f);
+	win_fill(f);
 	return (0);
 }
 
@@ -99,7 +99,7 @@ int	mouse_events(int key, int x, int y, t_img *f)
 		zoom(f, 2);
 	else
 		return (0);
-	win_set(f);
+	win_fill(f);
 	return (0);
 }
 

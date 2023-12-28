@@ -5,49 +5,49 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/12 16:57:28 by boiarinov         #+#    #+#             */
-/*   Updated: 2023/12/27 19:23:19 by aboiarin         ###   ########.fr       */
+/*   Created: 2023/12/28 15:41:24 by aboiarin          #+#    #+#             */
+/*   Updated: 2023/12/28 15:41:53 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	mandelbrot(double cr, double ci)
+int	mandelbrot(double m1x, double m1y)
 {
-	int		n;
-	double	zr;
-	double	zi;
-	double	tmp;
+	int		i;
+	double	mx;
+	double	my;
+	double	t;
 
-	zr = 0;
-	zi = 0;
-	n = 0;
-	while (n < MAX_I)
+	mx = 0;
+	my = 0;
+	i = 0;
+	while (i < MAX_I)
 	{
-		if ((zr * zr + zi * zi) > 4.0)
+		if ((mx * mx + my * my) > 4.0)
 			break ;
-		tmp = 2 * zr * zi + ci;
-		zr = zr * zr - zi * zi + cr;
-		zi = tmp;
-		n++;
+		t = 2 * mx * my + m1y;
+		mx = mx * mx - my * my + m1x;
+		my = t;
+		i++;
 	}
-	return (n);
+	return (i);
 }
 
-int	julia(t_img *f, double zr, double zi)
+int	julia(t_img *f, double jx, double jy)
 {
-	int		n;
-	double	tmp;
+	int		i;
+	double	t;
 
-	n = 0;
-	while (n < MAX_I)
+	i = 0;
+	while (i < MAX_I)
 	{
-		if ((zi * zi + zr * zr) > 4.0)
+		if ((jy * jy + jx * jx) > 4.0)
 			break ;
-		tmp = 2 * zr * zi + f->imagine_const;
-		zr = zr * zr - zi * zi + f->real_const;
-		zi = tmp;
-		n++;
+		t = 2 * jx * jy + f->y_const;
+		jx = jx * jx - jy * jy + f->x_const;
+		jy = t;
+		i++;
 	}
-	return (n);
+	return (i);
 }

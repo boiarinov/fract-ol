@@ -6,39 +6,13 @@
 /*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 19:26:14 by aboiarin          #+#    #+#             */
-/*   Updated: 2023/12/27 19:29:06 by aboiarin         ###   ########.fr       */
+/*   Updated: 2023/12/28 16:07:46 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	ft_atox_color(t_img *f, char *color)
-{
-	int	i;
-	int	x;
-	int	n;
-
-	n = 0;
-	i = 0;
-	i = skip_space_sign_0x(color);
-	x = 0;
-	while (color[i] && ft_ishexdigit(color[i]))
-	{
-		if (ft_isdigit(color[i]))
-			n = (n * 16) + (color[i] - '0');
-		else
-			n = (n * 16) + (ft_toupper(color[i]) - 'A' + 10);
-		i++;
-		x++;
-	}
-	if (x == 6 && !color[i])
-		return (n);
-	else
-		help(f);
-	return (-1);
-}
-
-int	skip_space_sign_0x(char *color)
+static int	skip_space_2(char *color)
 {
 	int	i;
 
@@ -53,7 +27,33 @@ int	skip_space_sign_0x(char *color)
 	return (i);
 }
 
-int	ft_ishexdigit(int c)
+int	ft_atox(t_img *f, char *color)
+{
+	int	i;
+	int	c;
+	int	r;
+
+	r = 0;
+	i = 0;
+	i = skip_space_2(color);
+	c = 0;
+	while (color[i] && ft_ishex(color[i]))
+	{
+		if (ft_isdigit(color[i]))
+			r = (r * 16) + (color[i] - '0');
+		else
+			r = (r * 16) + (ft_toupper(color[i]) - 'A' + 10);
+		i++;
+		c++;
+	}
+	if (c == 6 && !color[i])
+		return (r);
+	else
+		help(f);
+	return (-1);
+}
+
+int	ft_ishex(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (c);
@@ -70,14 +70,14 @@ void	clean_start(t_img *f)
 	f->win = NULL;
 	f->img = NULL;
 	f->set = -1;
-	f->real_min = 0;
-	f->real_max = 0;
-	f->imagine_min = 0;
-	f->imagine_max = 0;
-	f->real_const = 0;
-	f->imagine_const = 0;
+	f->x_min = 0;
+	f->x_max = 0;
+	f->y_min = 0;
+	f->y_max = 0;
+	f->x_const = 0;
+	f->y_const = 0;
 	f->scale_x = 0;
-	f->real_x = 0;
+	f->offset_x = 0;
 	f->focus_x = 0;
 	f->buf = NULL;
 	f->palette = NULL;
@@ -89,6 +89,8 @@ void	clean_exit(t_img *f)
 {
 	if (!f)
 		exit(1);
+	if (f->palette)
+		free(f->palette);
 	if (f->img)
 		mlx_destroy_image(f->mlx, f->img);
 	if (f->win && f->mlx)

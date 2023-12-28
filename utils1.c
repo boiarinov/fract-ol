@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/11 18:04:08 by boiarinov         #+#    #+#             */
-/*   Updated: 2023/12/27 19:28:35 by aboiarin         ###   ########.fr       */
+/*   Created: 2023/12/28 15:40:57 by aboiarin          #+#    #+#             */
+/*   Updated: 2023/12/28 16:00:24 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ void	win_init(t_img *f)
 	if (!f->win)
 		clean_exit(f);
 	f->scale_x = 2.0;
-	f->real_x = 0.5;
+	f->offset_x = 0.5;
 	f->focus_x = 1.0;
 	set_layout(f);
-	color_shift(f);
+	set_pattern(f);
 }
 
-static int	skip_space_sign(char *str, int *is_neg)
+static int	skip_space(char *str, int *n)
 {
 	int	i;
 
@@ -65,37 +65,37 @@ static int	skip_space_sign(char *str, int *is_neg)
 	if (str[i] == '+' || str[i] == '-')
 	{
 		if (str[i] == '-')
-			*is_neg *= -1;
+			*n *= -1;
 		i++;
 	}
 	return (i);
 }
 
-double	ft_atof(char *str)
+double	ft_atod(char *str)
 {
 	int		i;
-	double	nb;
-	int		is_neg;
+	double	r;
+	int		n;
 	double	div;
 
-	nb = 0;
+	r = 0;
 	div = 0.1;
-	is_neg = 1;
-	i = skip_space_sign(str, &is_neg);
+	n = 1;
+	i = skip_space(str, &n);
 	while (str[i] && ft_isdigit(str[i]) && str[i] != '.')
 	{
-		nb = (nb * 10.0) + (str[i] - '0');
+		r = (r * 10.0) + (str[i] - '0');
 		i++;
 	}
 	if (str[i] == '.')
 		i++;
 	while (str[i] && ft_isdigit(str[i]))
 	{
-		nb = nb + ((str[i] - '0') * div);
+		r = r + ((str[i] - '0') * div);
 		div *= 0.1;
 		i++;
 	}
 	if (str[i] && !ft_isdigit(str[i]))
-		return (-42);
-	return (nb * is_neg);
+		return (-1);
+	return (r * n);
 }

@@ -6,7 +6,7 @@
 #    By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/23 18:09:10 by aboiarin          #+#    #+#              #
-#    Updated: 2023/12/27 19:25:41 by aboiarin         ###   ########.fr        #
+#    Updated: 2023/12/28 15:40:17 by aboiarin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ LIBFT = $(LIBFT_PATH)/libft.a
 MLX_PATH = ./mlx
 MLX = $(MLX_PATH)/libmlx.a
 
-SRC = main.c events.c utils1.c utils2.c create.c colors.c fractals.c help.c
+SRC = main.c help.c create.c colors.c fractals.c events.c utils1.c utils2.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -34,11 +34,9 @@ bonus: all
 
 .o:	.c
 	$(CC) $(CFLAGS) -I/usr/include -Imlx -03 -c $< -o $@
-#	$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
 $(NAME):	$(LIBFT) $(MLX) $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -o $(NAME)
-#	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) -Lmlx -lmlx -framework OpenGL -framework Appimagine_constt -o $(NAME)
 
 $(LIBFT):
 	@echo 'Compiling libft... 📀'
@@ -53,7 +51,6 @@ $(MLX):
 clean:
 	@$(RM) $(OBJ)
 	@make -C $(LIBFT_PATH) clean
-	@make -C $(MLX_PATH) clean
 	@echo 'Object files removed ✨'
 
 start_message:

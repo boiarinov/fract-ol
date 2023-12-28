@@ -5,30 +5,28 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/12 16:22:08 by boiarinov         #+#    #+#             */
-/*   Updated: 2023/12/27 19:18:39 by aboiarin         ###   ########.fr       */
+/*   Created: 2023/12/28 15:41:49 by aboiarin          #+#    #+#             */
+/*   Updated: 2023/12/28 16:28:10 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	color_shift(t_img *f)
+void	set_pattern(t_img *f)
 {
 	int	shade;
 
 	f->pattern = (f->pattern + 1) % 9;
 	reinit_img(f);
 	if (f->color == 0x000000)
-		shade = 0x333333;
+		shade = 0xFFFFFF;
 	else
 		shade = f->color;
 	if (f->pattern == 0)
-		set_color_mono(f, shade);
-	else
-		color_shift_striped(f);
+		draw_colors(f, shade);
 }
 
-void	set_color_mono(t_img *f, int color)
+void	draw_colors(t_img *f, int color)
 {
 	int		i;
 	int		j;
@@ -52,18 +50,7 @@ void	set_color_mono(t_img *f, int color)
 		color2 = 0xFFFFFF;
 		i += j;
 	}
-	f->palette[MAX_I -1] = 0;
-}
-
-void	color_shift_striped(t_img *f)
-{
-	int	shade;
-
-	shade = 0xFFFFFF;
-	if (f->color == 0xFFFFFF)
-		shade = 0xCCCCCC;
-	else
-		set_color_mono(f, shade);
+	f->palette[MAX_I - 1] = 0;
 }
 
 int	interpolate(int startcolor, int endcolor, double fraction)
@@ -81,4 +68,12 @@ int	interpolate(int startcolor, int endcolor, double fraction)
 	start_rgb[1] = (end_rgb[1] - start_rgb[1]) * fraction + start_rgb[1];
 	start_rgb[2] = (end_rgb[2] - start_rgb[2]) * fraction + start_rgb[2];
 	return (0xFF << 24 | start_rgb[0] << 16 | start_rgb[1] << 8 | start_rgb[2]);
+}
+
+void	color_pixels(t_img *f, int x, int y, int color)
+{
+	f->buf[x * 4 + y * WIDTH * 4] = color;
+	f->buf[x * 4 + y * WIDTH * 4 + 1] = color >> 8;
+	f->buf[x * 4 + y * WIDTH * 4 + 2] = color >> 16;
+	f->buf[x * 4 + y * WIDTH * 4 + 3] = color >> 24;
 }
