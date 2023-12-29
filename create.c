@@ -6,7 +6,7 @@
 /*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 15:41:41 by aboiarin          #+#    #+#             */
-/*   Updated: 2023/12/28 16:28:10 by aboiarin         ###   ########.fr       */
+/*   Updated: 2023/12/29 19:43:09 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	win_fill(t_img *f)
 {
 	int		x;
 	int		y;
-	double	pix_x;
-	double	pix_y;
+	double	x_pix;
+	double	y_pix;
 	int		i;
 
 	mlx_clear_window(f->mlx, f->win);
@@ -57,23 +57,23 @@ void	win_fill(t_img *f)
 		x = -1;
 		while (++x < WIDTH)
 		{
-			pix_x = f->x_min + (double)x * (f->x_max - f->x_min) / WIDTH;
-			pix_y = f->y_max + (double)y * (f->y_min - f->y_max) / HEIGHT;
-			i = create_fractal(f, pix_x, pix_y);
+			x_pix = f->x_min + (double)x * (f->x_max - f->x_min) / WIDTH;
+			y_pix = f->y_max + (double)y * (f->y_min - f->y_max) / HEIGHT;
+			i = create_fractal(f, x_pix, y_pix);
 			color_pixels(f, x, y, f->palette[i]);
 		}
 	}
 	mlx_put_image_to_window(f->mlx, f->win, f->img, 0, 0);
 }
 
-int	create_fractal(t_img *f, double pix_x, double pix_y)
+int	create_fractal(t_img *f, double x_pix, double y_pix)
 {
 	int	i;
 
 	i = 0;
 	if (f->set == MANDELBROT)
-		i = mandelbrot(pix_x, pix_y);
+		i = mandelbrot(x_pix, y_pix);
 	else if (f->set == JULIA)
-		i = julia(f, pix_x, pix_y);
+		i = julia(f, x_pix, y_pix);
 	return (i);
 }

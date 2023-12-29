@@ -6,7 +6,7 @@
 /*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 19:26:14 by aboiarin          #+#    #+#             */
-/*   Updated: 2023/12/28 16:07:46 by aboiarin         ###   ########.fr       */
+/*   Updated: 2023/12/29 19:34:46 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,15 @@ void	clean_start(t_img *f)
 	f->win = NULL;
 	f->img = NULL;
 	f->set = -1;
-	f->x_min = 0;
-	f->x_max = 0;
-	f->y_min = 0;
-	f->y_max = 0;
 	f->x_const = 0;
 	f->y_const = 0;
 	f->scale_x = 0;
 	f->offset_x = 0;
 	f->focus_x = 0;
+	f->x_min = 0;
+	f->x_max = 0;
+	f->y_min = 0;
+	f->y_max = 0;
 	f->buf = NULL;
 	f->palette = NULL;
 	f->pattern = -1;

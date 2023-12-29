@@ -6,7 +6,7 @@
 /*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 15:41:49 by aboiarin          #+#    #+#             */
-/*   Updated: 2023/12/28 16:28:10 by aboiarin         ###   ########.fr       */
+/*   Updated: 2023/12/29 19:42:59 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void	draw_colors(t_img *f, int color)
 	int		i;
 	int		j;
 	double	fraction;
-	int		color1;
-	int		color2;
+	int		shade1;
+	int		shade2;
 
-	color1 = 0x000000;
-	color2 = color;
+	shade1 = 0x000000;
+	shade2 = color;
 	i = 0;
 	while (i < MAX_I)
 	{
@@ -43,31 +43,31 @@ void	draw_colors(t_img *f, int color)
 		while (j < MAX_I / 2)
 		{
 			fraction = (double)j / (MAX_I / 2);
-			f->palette[i + j] = interpolate(color1, color2, fraction);
+			f->palette[i + j] = interpolate(shade1, shade2, fraction);
 			j++;
 		}
-		color1 = color2;
-		color2 = 0xFFFFFF;
+		shade1 = shade2;
+		shade2 = 0xFFFFFF;
 		i += j;
 	}
 	f->palette[MAX_I - 1] = 0;
 }
 
-int	interpolate(int startcolor, int endcolor, double fraction)
+int	interpolate(int start, int end, double fraction)
 {
-	int	start_rgb[3];
-	int	end_rgb[3];
+	int	s_rgb[3];
+	int	e_rgb[3];
 
-	start_rgb[0] = ((startcolor >> 16) & 0xFF);
-	start_rgb[1] = ((startcolor >> 8) & 0xFF);
-	start_rgb[2] = ((startcolor >> 0) & 0xFF);
-	end_rgb[0] = ((endcolor >> 16) & 0xFF);
-	end_rgb[1] = ((endcolor >> 8) & 0xFF);
-	end_rgb[2] = ((endcolor >> 0) & 0xFF);
-	start_rgb[0] = (end_rgb[0] - start_rgb[0]) * fraction + start_rgb[0];
-	start_rgb[1] = (end_rgb[1] - start_rgb[1]) * fraction + start_rgb[1];
-	start_rgb[2] = (end_rgb[2] - start_rgb[2]) * fraction + start_rgb[2];
-	return (0xFF << 24 | start_rgb[0] << 16 | start_rgb[1] << 8 | start_rgb[2]);
+	s_rgb[0] = ((start >> 16) & 0xFF);
+	s_rgb[1] = ((start >> 8) & 0xFF);
+	s_rgb[2] = ((start >> 0) & 0xFF);
+	e_rgb[0] = ((end >> 16) & 0xFF);
+	e_rgb[1] = ((end >> 8) & 0xFF);
+	e_rgb[2] = ((end >> 0) & 0xFF);
+	s_rgb[0] = (e_rgb[0] - s_rgb[0]) * fraction + s_rgb[0];
+	s_rgb[1] = (e_rgb[1] - s_rgb[1]) * fraction + s_rgb[1];
+	s_rgb[2] = (e_rgb[2] - s_rgb[2]) * fraction + s_rgb[2];
+	return (0xFF << 24 | s_rgb[0] << 16 | s_rgb[1] << 8 | s_rgb[2]);
 }
 
 void	color_pixels(t_img *f, int x, int y, int color)

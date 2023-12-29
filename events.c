@@ -6,7 +6,7 @@
 /*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 16:47:06 by aboiarin          #+#    #+#             */
-/*   Updated: 2023/12/28 16:55:13 by aboiarin         ###   ########.fr       */
+/*   Updated: 2023/12/29 19:57:04 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,43 @@
 
 static void	zoom(t_img *f, double zoom)
 {
-	double	center_r;
-	double	center_i;
+	double	x_cent;
+	double	y_cent;
 
-	center_r = f->x_min - f->x_max;
-	center_i = f->y_max - f->y_min;
-	f->x_max = f->x_max + (center_r - zoom * center_r) / 2;
-	f->x_min = f->x_max + zoom * center_r;
-	f->y_min = f->y_min + (center_i - zoom * center_i) / 2;
-	f->y_max = f->y_min + zoom * center_i;
+	x_cent = f->x_min - f->x_max;
+	y_cent = f->y_max - f->y_min;
+	f->x_max = f->x_max + (x_cent - zoom * x_cent) / 2;
+	f->x_min = f->x_max + zoom * x_cent;
+	f->y_min = f->y_min + (y_cent - zoom * y_cent) / 2;
+	f->y_max = f->y_min + zoom * y_cent;
 }
 
 static void	move(t_img *f, double distance, char direction)
 {
-	double	center_r;
-	double	center_i;
+	double	x_cent;
+	double	y_cent;
 
-	center_r = f->x_max - f->x_min;
-	center_i = f->y_max - f->y_min;
-	if (direction == 'R')
+	x_cent = f->x_max - f->x_min;
+	y_cent = f->y_max - f->y_min;
+	if (direction == 'U')
 	{
-		f->x_min += center_r * distance;
-		f->x_max += center_r * distance;
-	}
-	else if (direction == 'L')
-	{
-		f->x_min -= center_r * distance;
-		f->x_max -= center_r * distance;
+		f->y_min += y_cent * distance;
+		f->y_max += y_cent * distance;
 	}
 	else if (direction == 'D')
 	{
-		f->y_min -= center_i * distance;
-		f->y_max -= center_i * distance;
+		f->y_min -= y_cent * distance;
+		f->y_max -= y_cent * distance;
 	}
-	else if (direction == 'U')
+	else if (direction == 'R')
 	{
-		f->y_min += center_i * distance;
-		f->y_max += center_i * distance;
+		f->x_min += x_cent * distance;
+		f->x_max += x_cent * distance;
+	}
+	else if (direction == 'L')
+	{
+		f->x_min -= x_cent * distance;
+		f->x_max -= x_cent * distance;
 	}
 }
 
@@ -86,14 +86,14 @@ int	mouse_events(int key, int x, int y, t_img *f)
 		zoom(f, 0.5);
 		x -= WIDTH / 2;
 		y -= HEIGHT / 2;
-		if (x < 0)
-			move(f, (double)x * -1 / WIDTH, 'L');
-		else if (x > 0)
-			move(f, (double)x / WIDTH, 'R');
 		if (y < 0)
 			move(f, (double)y * -1 / HEIGHT, 'U');
 		else if (y > 0)
 			move (f, (double)y / HEIGHT, 'D');
+		if (x > 0)
+			move(f, (double)x / WIDTH, 'R');
+		else if (x < 0)
+			move(f, (double)x * -1 / WIDTH, 'L');
 	}
 	else if (key == MOUSE_WHEEL_DOWN)
 		zoom(f, 2);

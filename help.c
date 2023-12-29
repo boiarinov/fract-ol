@@ -6,7 +6,7 @@
 /*   By: aboiarin <aboiarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 15:41:15 by aboiarin          #+#    #+#             */
-/*   Updated: 2023/12/28 16:15:04 by aboiarin         ###   ########.fr       */
+/*   Updated: 2023/12/29 19:56:23 by aboiarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	manual(void)
 	ft_printf("\nTherefore the input with color code shall look like this:\n");
 	ft_printf("Example:\t./fractol M 7fff00\n\n");
 	ft_printf("For Julia, you can specify values for the fractal shape.\n");
-	ft_printf("It shall be from -2.0 to 2.0.\n");
+	ft_printf("Value limits are strictly above -2.0 and below 2.0\n");
 	ft_printf("Examples:\t./fractol J 0.388 0.367\n");
 	ft_printf("\t\t./fractol J 0.285 0.01\n\n");
 	ft_printf("Please note, in this case color can be set only ");
